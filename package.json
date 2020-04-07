@@ -1,0 +1,33 @@
+{
+  "name": "continuum-engine",
+  "version": "1.0.0",
+  "description": "node version of continuum-engine",
+  "main": "src/js/index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pixelwelder/continuum-engine.git"
+  },
+  "author": "Carribus",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pixelwelder/continuum-engine/issues"
+  },
+  "homepage": "https://github.com/Pixelwelder/continuum-engine#readme",
+  "devDependencies": {
+    "@babel/preset-env": "^7.9.0",
+    "babel-jest": "^25.2.6",
+    "jest": "^25.2.7",
+    "jest-extended": "^0.11.5"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "jest-extended"
+    ]
+  }
+}
