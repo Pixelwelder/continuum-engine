@@ -104,7 +104,7 @@ export default class ContinuumEngine {
 
     activateModifier(key, opts) {
         if (this.modifiers[key]) {
-            if ( !this.modifiers[key].applyFunc ) return;
+            if ( !this.modifiers[key].apply ) return;
             const modifier = {
                 key: key,
                 expiresAt: opts.timeLeft ? Date.now() + opts.timeLeft : null,
