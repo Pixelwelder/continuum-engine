@@ -38,4 +38,14 @@ export default class Currency extends EventEmitter {
             delta: value
         });
     }
+
+    multiplyBy(value) {
+        this.value *= value;
+        this.emit("CURRENCY_UPDATED", {
+            obj: this,
+            type: this.state.type,
+            value: this.state.value,
+            delta: value
+        });
+    }
 }
