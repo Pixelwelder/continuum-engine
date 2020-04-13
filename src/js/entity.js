@@ -14,6 +14,7 @@ export default class Entity extends EventEmitter {
         if ( this.requirements ) console.log(this.requirements);
         this.lastProcessed = 0;
         this.engine = opts.engine;
+        this.meta = opts.meta || {};
     }
 
     get type()              { return this.state.type }
