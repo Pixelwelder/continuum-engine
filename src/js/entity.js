@@ -9,18 +9,19 @@ export default class Entity extends EventEmitter {
             key: opts.key,
             count: opts.count || 0,
             maxCount: opts.maxCount || Number.MAX_VALUE,
+            meta: opts.meta || {}
         }
         this.requirements = opts.requirements;
         if ( this.requirements ) console.log(this.requirements);
         this.lastProcessed = 0;
         this.engine = opts.engine;
-        this.meta = opts.meta || {};
     }
 
     get type()              { return this.state.type }
     get key()               { return this.state.key }
     get count()             { return this.state.count }
     get maxCount()          { return this.state.maxCount }
+    get meta()              { return this.state.meta }
 
     serialise() {
         return this.state;
