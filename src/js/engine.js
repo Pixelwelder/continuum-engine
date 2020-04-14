@@ -128,6 +128,7 @@ export default class ContinuumEngine {
         const applyFunc = funcMap[upgrade.applyFuncName];
         if (!applyFunc) throw `No function in funcMap by name '${upgrade.applyFuncName}'`;
 
+        upgrade.isActive = true;
         applyFunc(this.engine);
     }
 
