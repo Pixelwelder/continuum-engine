@@ -115,6 +115,10 @@ export default class ContinuumEngine {
         return upgrade;
     }
 
+    upgrade(name) {
+        return this.upgrades[name];
+    }
+
     /**
      * Activates an upgrade. Currently permanently.
      *
