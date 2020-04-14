@@ -6,6 +6,7 @@ import Producer from "./producer.js";
 import Resource from "./resource.js";
 import Modifier from "./modifier.js";
 import Reactor from "./reactor.js";
+import Upgrade from './upgrade';
 
 const NUMBER_FORMATTERS = {
     "scientific": formatScientificNumber,
@@ -22,6 +23,7 @@ export default class ContinuumEngine {
         this.resources = {};
         this.modifiers = {};
         this.reactors = {};
+        this.upgrades = {};
         this.activeModifiers = [];
         this.numberFormatter = formatDictionaryNumber;
         this.autosavePeriod = 0;
@@ -102,6 +104,33 @@ export default class ContinuumEngine {
         return this.reactors[key];
     }
 
+    createUpgrade(opts) {
+        if (!opts) throw "No upgrade options provided";
+        if (!opts.key) throw `Invalid upgrade key provided: ${opts.key}`;
+        if (this.upgrades[opts.key]) throw `An upgrade by key '${opts.key}' already exists`;
+
+        opts.engine = this;
+        const upgrade = new Upgrade(opts);
+        this.upgrades[opts.key] = upgrade;
+        return upgrade;
+    }
+
+    /**
+     * Activates an upgrade. Currently permanently.
+     *
+     * @param key - the key of the upgrade to activate
+     * @param funcMap - a map of functions that the upgrade will search to find its activate function
+     */
+    activateUpgrade(key, funcMap) {
+        if (!this.upgrades[key]) throw `No upgrade by key '${key}'`;
+
+        const upgrade = this.upgrades[key];
+        const applyFunc = funcMap[upgrade.applyFuncName];
+        if (!applyFunc) throw `No function in funcMap by name '${upgrade.applyFuncName}'`;
+
+        applyFunc(this.engine);
+    }
+
     activateModifier(key, opts) {
         if (this.modifiers[key]) {
             if ( !this.modifiers[key].apply ) return;
@@ -168,6 +197,7 @@ export default class ContinuumEngine {
             producers: serialiseObject(this.producers),
             resources: serialiseObject(this.resources),
             reactors: serialiseObject(this.reactors),
+            upgrades: serialiseObject(this.upgrades),
             numberFormatter: this.numberFormatter,
             autosavePeriod: this.autosavePeriod
         }
@@ -197,6 +227,12 @@ export default class ContinuumEngine {
                         case "producers":
                             for (const prod in state[prop]) {
                                 this.producers[prod].deserialise(state[prop][prod]);
+                            }
+                            break;
+
+                        case "upgrades":
+                            for (const upgr in state[prop]) {
+                                this.producers[upgr].deserialise(state[prop][upgr]);
                             }
                             break;
 
