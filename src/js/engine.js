@@ -237,7 +237,7 @@ export default class ContinuumEngine {
 
                         case "upgrades":
                             for (const upgr in state[prop]) {
-                                this.producers[upgr].deserialise(state[prop][upgr]);
+                                this.upgrades[upgr].deserialise(state[prop][upgr]);
                             }
                             break;
 
