@@ -27,7 +27,7 @@ export default class Upgrade {
   constructor(opts) {
     this.state = {
       key: opts.key,
-      meta: opts.meta = {},
+      meta: opts.meta || {},
       isActive: opts.isActive || false,
       cost: opts.cost || {},
       applyFuncName: opts.applyFuncName
