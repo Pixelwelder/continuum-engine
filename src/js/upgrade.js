@@ -39,6 +39,7 @@ export default class Upgrade {
   get key()               { return this.state.key }
   get meta()              { return this.state.meta }
   get isActive()          { return this.state.isActive }
+  set isActive(value)     { this.state.isActive = value }
   get cost()              { return this.state.cost }
   get applyFuncName()     { return this.state.applyFuncName }
 
