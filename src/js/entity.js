@@ -23,6 +23,15 @@ export default class Entity extends EventEmitter {
     get maxCount()          { return this.state.maxCount }
     get meta()              { return this.state.meta }
 
+    set meta(newMeta) {
+        this.state.meta = { ...this.meta, ...newMeta };
+        this.emit(this.state.type.toUpperCase() + "_META_UPDATED", {
+            obj: this,
+            delta: newMeta,
+            key: this.state.key
+        });
+    }
+
     serialise() {
         return this.state;
     }

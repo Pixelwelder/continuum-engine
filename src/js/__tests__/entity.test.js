@@ -23,4 +23,14 @@ describe('Entity', () => {
     const modifier = engine.createModifier({ key: 'key3', meta });
     expect(producer.meta).toBe(meta);
   });
+
+  test('the entity should emit an event when its meta is updated', () => {
+    const meta = { prop: 'val' };
+    const engine = new Engine();
+    const producer = engine.createProducer({ key: 'key0', meta });
+    const listener = jest.fn();
+    producer.on('PRODUCER_META_UPDATED', listener);
+    producer.meta = { prop: 'val2' };
+    expect(listener).toHaveBeenCalled();
+  });
 });
