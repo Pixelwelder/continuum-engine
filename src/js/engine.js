@@ -129,8 +129,8 @@ export default class ContinuumEngine {
         if (!this.upgrades[key]) throw `No upgrade by key '${key}'`;
 
         const upgrade = this.upgrades[key];
-        const applyFunc = funcMap[upgrade.applyFuncName];
-        if (!applyFunc) throw `No function in funcMap by name '${upgrade.applyFuncName}'`;
+        const applyFunc = funcMap[upgrade.key];
+        if (!applyFunc) throw `No function in funcMap by name '${upgrade.key}'`;
 
         upgrade.isActive = true;
         applyFunc(this.engine);
