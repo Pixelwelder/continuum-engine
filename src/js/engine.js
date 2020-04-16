@@ -133,7 +133,7 @@ export default class ContinuumEngine {
         if (!applyFunc) throw `No function in funcMap by name '${upgrade.key}'`;
 
         upgrade.isActive = true;
-        applyFunc(this.engine);
+        applyFunc(this);
     }
 
     activateModifier(key, opts) {
