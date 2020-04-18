@@ -186,14 +186,14 @@ export default class ContinuumEngine {
         }
     }
 
-    saveState() {
+    getState(serialized = false) {
         const serialiseObject = (o) => {
             const result = {};
             for (const prop in o) {
                 result[prop] = o[prop].serialise();
             }
             return result;
-        }
+        };
 
         const state = {
             lastTick: 0, //this.lastTick,
@@ -205,12 +205,18 @@ export default class ContinuumEngine {
             upgrades: serialiseObject(this.upgrades),
             numberFormatter: this.numberFormatter,
             autosavePeriod: this.autosavePeriod
-        }
-        window.localStorage.setItem('state', JSON.stringify(state));
+        };
+
+        return serialized ? JSON.stringify(state) : state;
     }
 
-    loadState() {
-        let state = window.localStorage.getItem('state');
+    saveState() {
+        const state = getState(true);
+        window.localStorage.setItem('state', state);
+    }
+
+    loadState(_state) {
+        const state = _state || window.localStorage.getItem('state');
 
         if (state) {
             try {
