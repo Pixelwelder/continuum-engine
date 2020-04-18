@@ -216,11 +216,14 @@ export default class ContinuumEngine {
     }
 
     loadState(_state) {
-        const state = _state || window.localStorage.getItem('state');
+        let state = _state || window.localStorage.getItem('state');
 
         if (state) {
             try {
-                state = JSON.parse(state);
+                if (typeof state === 'string') {
+                    state = JSON.parse(state);
+                }
+
                 for (const prop in state) {
                     switch (prop) {
                         case "currencies":
